@@ -294,7 +294,9 @@ def process_all_datasets(dataset_configs: List[Dict], output_base_dir: str):
 def main():
     """Main function to process multiple datasets and splits."""
     import os 
-    root_dir = "/data3/nperi/rf20vl"
+    root_dir = "/home/nperi/Workspace/LLaMA-Factory/data/rf20vl"
+    output_base_dir = "sharegpt4v_datasets"
+
     dataset_configs = []
     
     for dataset in os.listdir(root_dir):
@@ -325,16 +327,12 @@ def main():
     #]
     
     # Output directory for all generated datasets
-    output_base_dir = "sharegpt4v_datasets"
     
     # Process all datasets
     stats = process_all_datasets(dataset_configs, output_base_dir)
     
     print(f"\nDataset generation complete!")
     print(f"All datasets saved to: {output_base_dir}")
-
-if __name__ == "__main__":
-    main()
 
 if __name__ == "__main__":
     main()
