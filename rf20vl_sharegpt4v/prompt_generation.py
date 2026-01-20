@@ -117,14 +117,11 @@ def generate_prompts(dataset_info: Dict, coco_classes: List[str]) -> Dict:
     for class_name in coco_classes:
         class_key = class_name.lower().replace(" ", "-")
 
-        try:
-            class_info = dataset_info['classes'][class_key]
-            description = class_info['description']
-            annotation = class_info['instructions']
-            display_name = class_info['display_name']
-        except:
-            import pdb; pdb.set_trace()
-            
+        class_info = dataset_info['classes'][class_key]
+        description = class_info['description']
+        annotation = class_info['instructions']
+        display_name = class_info['display_name']
+                    
         instructions = f"## {display_name}\n"
         instructions += f"### Description\n{description}\n\n"
         instructions += f"### Instructions\n{annotation}"
