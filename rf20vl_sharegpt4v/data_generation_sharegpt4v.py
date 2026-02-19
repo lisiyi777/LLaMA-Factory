@@ -73,10 +73,13 @@ def format_detections_response(annotations: List[Dict], class_mapping: Dict[int,
     detections = []
     for ann in annotations:
         bbox_xyxy = convert_bbox_to_xyxy(ann['bbox'])  # pixel xyxy
-        bbox_1000 = xyxy_to_1000(bbox_xyxy, img_w, img_h, coord_base)
+        if coord_base is not None:
+            bbox_2d = xyxy_to_1000(bbox_xyxy, img_w, img_h, coord_base)
+        else:
+            bbox_2d = bbox_xyxy
 
         detection = {
-            "bbox_2d": bbox_1000,
+            "bbox_2d": bbox_2d,
             "label": class_mapping[ann['category_id']]
         }
         detections.append(detection)
@@ -105,8 +108,6 @@ def generate_by_image_datasets(coco_data: Dict, prompts: Dict, image_url_base: s
         image_info = image_mapping[image_id]
         img_w, img_h = image_info["width"], image_info["height"]
         response = format_detections_response(annotations, class_mapping, img_w, img_h)
-
-        # response = format_detections_response(annotations, class_mapping)
         
         # Label only dataset
         label_only_conversation = {
@@ -204,7 +205,6 @@ def generate_by_class_datasets(coco_data: Dict, prompts: Dict, image_url_base: s
             image_info = image_mapping[image_id]
             img_w, img_h = image_info["width"], image_info["height"]
             response = format_detections_response(annotations, class_mapping, img_w, img_h)
-            # response = format_detections_response(annotations, class_mapping)
 
             label_only_conversation = {
                 "messages": [
