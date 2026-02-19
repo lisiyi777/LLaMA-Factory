@@ -1,7 +1,35 @@
+# change log: 2026-02-08, added annotation resize for qwen3vl
+# change log: 2026-02-12, added alias mapping for class names
 import json
 import os
 from typing import Dict, List, Any
 from collections import defaultdict
+import re
+from typing import Optional
+from prompt_generation import ALIASES
+COORD_BASE = 1000.0
+
+def clamp(v, lo=0.0, hi=COORD_BASE):
+    return max(lo, min(hi, v))
+
+def xyxy_to_1000(xyxy, img_w, img_h, coord_base=1000):
+    x1, y1, x2, y2 = map(float, xyxy)
+    x1 = round(x1 / img_w * coord_base)
+    x2 = round(x2 / img_w * coord_base)
+    y1 = round(y1 / img_h * coord_base)
+    y2 = round(y2 / img_h * coord_base)
+
+    # clamp
+    x1 = max(0, min(coord_base, x1))
+    x2 = max(0, min(coord_base, x2))
+    y1 = max(0, min(coord_base, y1))
+    y2 = max(0, min(coord_base, y2))
+
+    # ensure valid ordering
+    if x2 <= x1: x2 = min(coord_base, x1 + 1)
+    if y2 <= y1: y2 = min(coord_base, y1 + 1)
+
+    return [int(x1), int(y1), int(x2), int(y2)]
 
 def load_coco_annotations(json_path: str) -> Dict:
     """Load COCO format annotations."""
@@ -40,18 +68,22 @@ def convert_bbox_to_xyxy(bbox: List[float]) -> List[float]:
     x, y, w, h = bbox
     return [x, y, x + w, y + h]
 
-def format_detections_response(annotations: List[Dict], class_mapping: Dict[int, str]) -> str:
-    """Format annotations as JSON response - always returns a list."""
+def format_detections_response(annotations: List[Dict], class_mapping: Dict[int, str],
+                               img_w: int, img_h: int, coord_base: float = 1000.0) -> str:
     detections = []
     for ann in annotations:
-        bbox_xyxy = convert_bbox_to_xyxy(ann['bbox'])
+        bbox_xyxy = convert_bbox_to_xyxy(ann['bbox'])  # pixel xyxy
+        bbox_1000 = xyxy_to_1000(bbox_xyxy, img_w, img_h, coord_base)
+
         detection = {
-            "bbox_2d": bbox_xyxy,
+            "bbox_2d": bbox_1000,
             "label": class_mapping[ann['category_id']]
         }
         detections.append(detection)
-    
+
     return json.dumps(detections)
+
+
 
 def generate_by_image_datasets(coco_data: Dict, prompts: Dict, image_url_base: str = "") -> tuple:
     """Generate by_image datasets (label_only and with_description)."""
@@ -70,7 +102,11 @@ def generate_by_image_datasets(coco_data: Dict, prompts: Dict, image_url_base: s
         image_url = f"{image_url_base}{image_info['file_name']}" if image_url_base else image_info['file_name']
         
         # Format response
-        response = format_detections_response(annotations, class_mapping)
+        image_info = image_mapping[image_id]
+        img_w, img_h = image_info["width"], image_info["height"]
+        response = format_detections_response(annotations, class_mapping, img_w, img_h)
+
+        # response = format_detections_response(annotations, class_mapping)
         
         # Label only dataset
         label_only_conversation = {
@@ -106,69 +142,90 @@ def generate_by_image_datasets(coco_data: Dict, prompts: Dict, image_url_base: s
     
     return label_only_data, with_description_data
 
+def resolve_prompt_key(prompts: dict, class_name: str) -> Optional[str]:
+    """
+    Match prompt_generation.py keys:
+      - lowercase
+      - spaces -> hyphens
+      - punctuation normalization
+      - plural / singular mismatch
+    """
+
+    # base normalization
+    k = class_name.strip().lower()
+    k = re.sub(r"\s+", "-", k)              # spaces -> "-"
+    k = re.sub(r"[^a-z0-9\-]+", "-", k)     # any weird chars -> "-"
+    k = re.sub(r"-+", "-", k)               # collapse ---
+    k = k.strip("-")
+    k = ALIASES.get(k, k)
+
+    # candidate variants
+    candidates = [
+        k,
+        k + "s",
+        k.rstrip("s"),
+    ]
+
+    for ck in candidates:
+        if ck in prompts:
+            return ck
+
+    return None
+
+
 def generate_by_class_datasets(coco_data: Dict, prompts: Dict, image_url_base: str = "") -> tuple:
     """Generate by_class datasets (label_only and with_description)."""
     class_mapping = get_class_name_mapping(coco_data)
     image_mapping = get_image_info_mapping(coco_data)
     annotations_by_image_class = group_annotations_by_image_and_class(coco_data)
-    
+
     label_only_data = []
     with_description_data = []
-    
+
     for image_id, class_annotations in annotations_by_image_class.items():
         if image_id not in image_mapping:
             continue
-            
+
         image_info = image_mapping[image_id]
-        image_url = f"{image_url_base}{image_info['file_name']}" if image_url_base else image_info['file_name']
-        
+
+        # IMPORTANT: use os.path.join, not string concat
+        image_url = os.path.join(image_url_base, image_info["file_name"]) if image_url_base else image_info["file_name"]
+
         # For each class present in this image
         for class_id, annotations in class_annotations.items():
             if class_id not in class_mapping:
                 continue
-                
+
             class_name = class_mapping[class_id]
-            
-            # Skip if no prompts for this class
-            if class_name not in prompts:
+            prompt_key = resolve_prompt_key(prompts, class_name)
+
+            if prompt_key is None:
                 continue
-            
-            # Format response for this specific class
-            response = format_detections_response(annotations, class_mapping)
-            
-            # Label only dataset
+            image_info = image_mapping[image_id]
+            img_w, img_h = image_info["width"], image_info["height"]
+            response = format_detections_response(annotations, class_mapping, img_w, img_h)
+            # response = format_detections_response(annotations, class_mapping)
+
             label_only_conversation = {
                 "messages": [
-                    {
-                        "content": f"<image>{prompts[class_name]['label_only']}",
-                        "role": "user"
-                    },
-                    {
-                        "content": response,
-                        "role": "assistant"
-                    }
+                    {"content": f"<image>{prompts[prompt_key]['label_only']}", "role": "user"},
+                    {"content": response, "role": "assistant"},
                 ],
-                "images": [image_url]
+                "images": [image_url],
             }
             label_only_data.append(label_only_conversation)
-            
-            # With description dataset
+
             with_description_conversation = {
                 "messages": [
-                    {
-                        "content": f"<image>{prompts[class_name]['with_description']}",
-                        "role": "user"
-                    },
-                    {
-                        "content": response,
-                        "role": "assistant"
-                    }
+                    {"content": f"<image>{prompts[prompt_key]['with_description']}", "role": "user"},
+                    {"content": response, "role": "assistant"},
                 ],
-                "images": [image_url]
+                "images": [image_url],
             }
             with_description_data.append(with_description_conversation)
-    
+
     return label_only_data, with_description_data
+
 
 def save_dataset(data: List[Dict], output_path: str):
     """Save dataset to JSON file."""
@@ -294,8 +351,8 @@ def process_all_datasets(dataset_configs: List[Dict], output_base_dir: str):
 def main():
     """Main function to process multiple datasets and splits."""
     import os 
-    root_dir = "/home/nperi/Workspace/LLaMA-Factory/data/rf20vl"
-    output_base_dir = "sharegpt4v_datasets"
+    root_dir = "/scratch/siyili/rf20vl-6X"
+    output_base_dir = "sharegpt4v_datasets-6X"
 
     dataset_configs = []
     

@@ -2,6 +2,62 @@ import json
 import re
 from typing import Dict, List, Tuple
 
+ALIASES = {
+    "whd": "wheat-heads",
+    "billto": "bill-to",
+    "payment-info": "payment-information",
+    "alcoholpercentage": "alcohol-percentage",
+    "appellation-aoc-doc-avaregion": "appellation-aoc-doc-ava-region",
+    "appellation-qualitylevel": "appellation-quality-level",
+    "countrycountry": "country",
+    "established-yearyear": "established-year",
+    "sweetness-brut-secsweetness-brut-sec": "sweetness-brut-sec",
+    "typewine-type": "wine-type",
+    "vintageyear": "vintage-year",
+    "pitiutary": "pituitary",
+    "no-pill-back": "nopill-back",
+    "no-pill-front": "nopill-front",
+    "capacitor-footprint": "capacitor_footprint",
+    "ic-bottom": "ic_bottom",
+    'ic-footprint': 'ic_footprint',
+    'ic-top': 'ic_top', 
+    'led-bottom': 'led_bottom', 
+    'led-footprint': 'led_footprint', 
+    'led-top': 'led_top', 
+    'resistor-bottom': 'resistor_bottom', 
+    'resistor-footprint': 'resistor_footprint', 
+    'resistor-top': 'resistor_top',
+    "ally-goblin-cage": "ally-goblin-brawler",
+    "ally-knight": "enemy-knight", 
+    "bamboo-1": "bamboo_1",
+    "bamboo-2": "bamboo_2",
+    "bamboo-3": "bamboo_3",
+    "bamboo-4": "bamboo_4",
+    "bamboo-5": "bamboo_5",
+    "bamboo-6": "bamboo_6",
+    "bamboo-7": "bamboo_7",
+    "bamboo-8": "bamboo_8",
+    "bamboo-9": "bamboo_9",
+    "character-1": "character_1",
+    "character-2": "character_2",
+    "character-3": "character_3",
+    "character-4": "character_4",
+    "character-5": "character_5",
+    "character-6": "character_6",
+    "character-7": "character_7",
+    "character-8": "character_8",
+    "character-9": "character_9",
+    "circle-1": "circle_1",
+    "circle-2": "circle_2",
+    "circle-3": "circle_3",
+    "circle-4": "circle_4",
+    "circle-5": "circle_5",
+    "circle-6": "circle_6",
+    "circle-7": "circle_7",
+    "circle-8": "circle_8",
+    "circle-9": "circle_9",
+}
+
 def build_prompt(class_name, instructions=None):
     prompt = (
         f"Locate all of the following objects: {class_name} in the image and "
@@ -112,16 +168,37 @@ def generate_prompts(dataset_info: Dict, coco_classes: List[str]) -> Dict:
     
     all_classes = ""
     all_instructions = ""
-    
+
     # Generate prompts for each class
     for class_name in coco_classes:
         class_key = class_name.lower().replace(" ", "-")
+        class_key = class_key.replace("_", "-")
+        class_key = ALIASES.get(class_key, class_key)
 
-        class_info = dataset_info['classes'][class_key]
+        if class_key not in dataset_info["classes"]:
+            candidates = [
+                class_key,
+                class_key.rstrip("s"),
+            ]
+            hit = None
+            for ck in candidates:
+                if ck in dataset_info["classes"]:
+                    hit = ck
+                    break
+            if hit is None:
+                keys = sorted(dataset_info["classes"].keys())
+                print("\n[DEBUG] COCO class:", class_name)
+                print("[DEBUG] normalized key:", class_key)
+                print("[DEBUG] available README keys (first 50):", keys[:100])
+
+                raise KeyError(f"Could not match COCO class '{class_name}' -> '{class_key}' in README classes.")
+            class_key = hit
+
+        class_info = dataset_info["classes"][class_key]
         description = class_info['description']
         annotation = class_info['instructions']
         display_name = class_info['display_name']
-                    
+            
         instructions = f"## {display_name}\n"
         instructions += f"### Description\n{description}\n\n"
         instructions += f"### Instructions\n{annotation}"
@@ -163,13 +240,27 @@ def main(text_file_path: str, json_file_path: str, output_file_path: str = None)
 
 if __name__ == "__main__":
     import os
-    root_dir = "/home/nperi/Workspace/LLaMA-Factory/data/rf20vl"
-    
-    for dataset in os.listdir(root_dir):
-        # Example usage
-        text_file = "{}/{}/README.dataset.txt".format(root_dir, dataset)  # Your text file path
-        json_file = "{}/{}/train/_annotations.coco.json".format(root_dir, dataset)  # Your COCO JSON file path
-        output_file = "{}/{}/{}_prompts.json".format(root_dir, dataset, dataset)  # Output file path
-        
-        # Run the parser
-        prompts = main(text_file, json_file, output_file)
+
+    root_dir = "/scratch/siyili/rf20vl-6X"
+    skipped = []
+
+    for dataset in sorted(os.listdir(root_dir)):
+        text_file = f"{root_dir}/{dataset}/README.dataset.txt"
+        json_file = f"{root_dir}/{dataset}/train/_annotations.coco.json"
+        output_file = f"{root_dir}/{dataset}/{dataset}_prompts.json"
+
+        try:
+            print(f"\n==== DATASET: {dataset} ====")
+            _ = main(text_file, json_file, output_file)
+        except Exception as e:
+            skipped.append(dataset)
+            print(f"\n[SKIP] dataset={dataset}")
+            print(f"  text_file={text_file}")
+            print(f"  json_file={json_file}")
+            print(f"  error={repr(e)}")
+            continue
+
+    print("\n" + "=" * 80)
+    print(f"Finished. Skipped {len(skipped)} dataset(s):")
+    for d in skipped:
+        print("  -", d)
