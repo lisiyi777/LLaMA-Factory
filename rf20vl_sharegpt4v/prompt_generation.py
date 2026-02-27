@@ -62,7 +62,8 @@ def build_prompt(class_name, instructions=None):
     prompt = (
         f"Locate all of the following objects: {class_name} in the image and "
         f'output the coordinates in JSON format like '
-        f'{{"bbox_2d":[x1,y1,x2,y2],"label":"class_name"}}.'
+        f'{{"bbox_2d":[x1,y1,x2,y2],"label":"class_name","confidence":float}}.\n'
+        f'"confidence" must be a number in [0,1] indicating how confident you are that the box tightly covers the object.'
     )
 
     if instructions:
@@ -71,8 +72,8 @@ def build_prompt(class_name, instructions=None):
             f"{instructions}\n"
         )
 
-    return prompt
-
+    return prompt   
+    
 def parse_dataset_file(file_path: str) -> Dict:
     """Parse the dataset text file and extract relevant information."""
     with open(file_path, 'r', encoding='utf-8') as file:
