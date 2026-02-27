@@ -317,11 +317,11 @@ def main(args):
                     # Use buffer excluding the current image (just appended) to avoid self-sampling duplicates
                     candidates = image_buffer[:-1]
                     # mosaic / mixup first
-                    if random.random() < -0.8 and len(candidates) >= 3:
+                    if random.random() < 0.8 and len(candidates) >= 3:
                         final_image, final_bboxes, final_cats = apply_mosaic(
                             final_image, final_bboxes, final_cats, candidates, output_size=target_size
                         )
-                    elif random.random() < -0.8 and len(candidates) >= 1:
+                    elif random.random() < 0.8 and len(candidates) >= 1:
                         final_image, final_bboxes, final_cats = apply_mixup(
                             final_image, final_bboxes, final_cats, candidates, output_size=target_size
                         )

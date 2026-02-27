@@ -2,7 +2,7 @@ import os
 os.environ['VLLM_WORKER_MULTIPROC_METHOD'] = 'spawn'
 
 from vllm import LLM, SamplingParams
-
+from vllm.lora.request import LoRARequest
 # os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 from tqdm import tqdm
@@ -28,11 +28,15 @@ import re
 import numpy as np
 
 import random
+from collections import defaultdict
+from pathlib import Path
+from datetime import datetime
 
 
+DEBUG_VQA = False
 from transformers import pipeline
 
-def load_qwen_model(model_name_or_path: str):
+def load_qwen_model(model_name_or_path: str, enable_lora: bool = False):
     """
     model_name_or_path can be:
       - "Qwen3-VL-8B-Instruct" (will load from Hub as "Qwen/<name>")
@@ -67,11 +71,12 @@ def load_qwen_model(model_name_or_path: str):
         model=model_id,                 # <-- key change: local path or repo id
         dtype=dtype,
         trust_remote_code=True,
-        gpu_memory_utilization=0.90,
+        gpu_memory_utilization=0.80,
         enforce_eager=False,
         enable_expert_parallel=enable_expert_parallel,
         tensor_parallel_size=tensor_parallel_size,
         seed=0,
+        enable_lora=enable_lora,
     )
 
     processor = AutoProcessor.from_pretrained(processor_id, trust_remote_code=True)
@@ -83,7 +88,35 @@ def load_qwen_model(model_name_or_path: str):
 
     return model, processor
 
+def find_latest_lora_checkpoint(lora_ds_dir: Path) -> Path | None:
+    """
+    Expect something like:
+      /scratch/.../<dataset>/single_instruction/checkpoint-1000/
+    Return the checkpoint dir path or None.
+    """
+    if not lora_ds_dir.exists():
+        return None
 
+    # common patterns: checkpoint-xxx
+    ckpts = [p for p in lora_ds_dir.glob("checkpoint-*") if p.is_dir()]
+    if not ckpts:
+        # sometimes adapter is saved directly in the dir
+        # (adapter_config.json / adapter_model.safetensors)
+        if (lora_ds_dir / "adapter_config.json").exists():
+            return lora_ds_dir
+        return None
+
+    def step(p: Path):
+        m = re.search(r"checkpoint-(\d+)", p.name)
+        return int(m.group(1)) if m else -1
+
+    ckpts = sorted(ckpts, key=step)
+    best = ckpts[-1]
+
+    # sanity: must have adapter_config.json (typical PEFT format)
+    if not (best / "adapter_config.json").exists():
+        return None
+    return best
 
 def set_seed(seed):
     """Sets the seed for reproducibility."""
@@ -93,15 +126,19 @@ def set_seed(seed):
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
 
+def xywh_to_xyxy(b):
+    x, y, w, h = map(float, b)
+    return [x, y, x + w, y + h]
 
-
-def load_sigclip_pipeline():
-    # ckpt = "google/siglip2-so400m-patch14-384"
-    ckpt = "google/siglip2-base-patch16-naflex"
-    pipe = pipeline(model=ckpt, task="zero-shot-image-classification")
-    return pipe
-
-
+def clamp_xyxy(b, W, H):
+    x1, y1, x2, y2 = map(float, b)
+    x1 = max(0.0, min(x1, W - 1))
+    y1 = max(0.0, min(y1, H - 1))
+    x2 = max(0.0, min(x2, W - 1))
+    y2 = max(0.0, min(y2, H - 1))
+    if x2 < x1: x1, x2 = x2, x1
+    if y2 < y1: y1, y2 = y2, y1
+    return [x1, y1, x2, y2]
 
 def model_generate(messages, model, processor):
     text_input = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
@@ -141,7 +178,7 @@ def model_generate(messages, model, processor):
 
 
 # def model_generate_with_scores(conversations, model, processor, max_new_tokens=2):
-def model_generate_with_scores(conversations, model, processor, max_new_tokens=1):
+def model_generate_with_scores(conversations, model, processor, max_new_tokens=1, lora_request=None):
 # def model_generate_with_scores(conversations, model, processor, max_new_tokens=5):
     # conversations is a list of message lists
 
@@ -174,10 +211,10 @@ def model_generate_with_scores(conversations, model, processor, max_new_tokens=1
             max_tokens=max_new_tokens,
             top_k=-1,
             # logprobs=max_new_tokens,   # get top-5 logprobs per token
-            logprobs=5,   # get top-5 logprobs per token
+            logprobs=10,   # get top-5 logprobs per token
             stop_token_ids=[],
         )
-        outputs = model.generate(inputs, sampling_params = sampling_params)
+        outputs = model.generate(inputs, sampling_params = sampling_params, lora_request=lora_request)
         # for i, output in enumerate(outputs):
         #     output_text = output.outputs[0].text
 
@@ -188,24 +225,11 @@ def model_generate_with_scores(conversations, model, processor, max_new_tokens=1
     
     return outputs
 
-
-# Siglip utils
-
-def rescore_with_sigclip(sigclip_pipe, pil_image, candidate_label):
-    output = sigclip_pipe(pil_image, candidate_labels=[candidate_label])
-    # print(f"SigClip output: {output} for label: {candidate_label}")
-    assert len(output) == 1, "Error: SigClip output length is not 1."
-
-    label_score = output[0]['score']
-
-    return label_score
-
-
 # VQA utils
 
 import numpy as np
 
-def get_masked_image_vqa_scores_with_instructions(qwen_model, qwen_processor, dataset_instructions_json, prompt_list, pil_images: list, batch_size: int = 8):
+def get_masked_image_vqa_scores_with_instructions(qwen_model, qwen_processor, dataset_instructions_json, prompt_list, pil_images: list, batch_size: int = 8, lora_request=None):
     """
     Scores a batch of images with bounding boxes based on a VQA prompt.
     This function is adapted from GridVQAscores_withSavedSAMProposal_webUI_RefCOCO_officialEval_saveInterimResults_gridWeightedBBox.py
@@ -229,86 +253,100 @@ def get_masked_image_vqa_scores_with_instructions(qwen_model, qwen_processor, da
 
 
 
+    # def getPrompt(prompt, dataset_instructions_json):
+
+    #     question = f"""
+    #         Given the '{prompt}' class defined as follows: {getDatasetInstructions(dataset_instructions_json, prompt)}
+
+    #         Is the main subject or object being referred to as: '{prompt}' located inside the red bounding box in the image? Please answer Yes or No. Note: The object should be entirely inside the bounding box, with no part outside, and it must be the only object present inside - no other objects should appear within the box.
+    #     """
+
+    #     return question
+
     def getPrompt(prompt, dataset_instructions_json):
-
         question = f"""
-            Given the '{prompt}' class defined as follows: {getDatasetInstructions(dataset_instructions_json, prompt)}
+            Given the '{prompt}' class defined as follows:
+            {getDatasetInstructions(dataset_instructions_json, prompt)}
 
-            Is the main subject or object being referred to as: '{prompt}' located inside the red bounding box in the image? Please answer Yes or No. Note: The object should be entirely inside the bounding box, with no part outside, and it must be the only object present inside - no other objects should appear within the box.
+            Look at the red bounding box. Question: Does this red box contain at least one instance of '{prompt}'?
+
+            Answer **Yes** if a '{prompt}' is clearly present inside the box and the box mostly covers it (it is okay if parts are slightly outside due to motion/occlusion, and it is okay if other objects/people also appear in the box).
+            Answer **No** if there is no '{prompt}' in the box, or if the box is mostly on the wrong object/background.
+
+            Please answer with exactly one word: Yes or No.
         """
-
         return question
 
         
     # yes_token_id = qwen_processor.tokenizer.encode("Yes")[0]
     # no_token_id = qwen_processor.tokenizer.encode("No")[0]
 
-    all_final_scores = []
-    # Process images in batches
-    for i in range(0, len(pil_images)):
-        img = pil_images[i]
-        prompt = prompt_list[i]
-        
-        # Create conversations for the batch
-        messages = [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": getPrompt(prompt, dataset_instructions_json)}]}]
-        
-        # Generate outputs with scores
-        outputs = model_generate_with_scores(messages, qwen_model, qwen_processor)
+    all_scores = []
 
-        # # Calculate 'Yes' probability
+    # chunk into batches
+    for start in range(0, len(pil_images), batch_size):
+        batch_imgs = pil_images[start:start + batch_size]
+        batch_prompts = prompt_list[start:start + batch_size]
 
-        assert len(outputs) == 1, "Error: Expected single output for single input."
+        # build a list of independent requests for vLLM
+        inputs_list = []
+        for img, prompt in zip(batch_imgs, batch_prompts):
+            messages = [{
+                "role": "user",
+                "content": [
+                    {"type": "image", "image": img},
+                    {"type": "text", "text": getPrompt(prompt, dataset_instructions_json)}
+                ]
+            }]
+            text_input = qwen_processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            image_inputs, _ = process_vision_info(messages)
 
+            mm_data = {}
+            if image_inputs is not None:
+                mm_data["image"] = image_inputs
 
-        token_logprobs = outputs[0].outputs[0].logprobs[0]  # list[dict]
-        # print(f"token_logprobs: {token_logprobs}")
+            inputs_list.append({
+                "prompt": text_input,
+                "multi_modal_data": mm_data,
+            })
 
+        sampling_params = SamplingParams(
+            temperature=0,
+            max_tokens=1,
+            top_k=-1,
+            logprobs=10,
+            stop_token_ids=[],
+        )
 
-        # Initialize scores
-        yes_logprob = None
-        no_logprob = None
+        outputs = qwen_model.generate(inputs_list, sampling_params=sampling_params, lora_request=lora_request)
 
-        # Look through generated tokens and their top_logprobs
-        for token_id, token_info in token_logprobs.items():
-            # top_logprobs = token_info["top_logprobs"]
-            logprob = token_info.logprob
-            decoded_token = token_info.decoded_token
-            # print(f"Decoded token: {decoded_token}: logprob: {logprob}, token_id: {token_id}")
+        # parse each output
+        for out in outputs:
+            token_logprobs = out.outputs[0].logprobs[0]  # dict[token_id -> TokenLogprob]
 
-            if "Yes" == decoded_token:
-                yes_logprob = logprob
-            if yes_logprob is None and "yes" == decoded_token:
-                yes_logprob = logprob
+            yes_logprob = None
+            no_logprob = None
+            for _, info in token_logprobs.items():
+                t = info.decoded_token
+                if t == "Yes" or (yes_logprob is None and t == "yes"):
+                    yes_logprob = info.logprob
+                if t == "No" or (no_logprob is None and t == "no"):
+                    no_logprob = info.logprob
 
-            if "No" == decoded_token:
-                no_logprob = logprob
-            if no_logprob is None and "no" == decoded_token:
-                no_logprob = logprob
+            if yes_logprob is None and no_logprob is None:
+                all_scores.append(-1.0)
+                continue
+            if yes_logprob is None:
+                no_prob = torch.exp(torch.tensor(no_logprob)) if no_logprob is not None else torch.tensor(0.0)
+                all_scores.append(float((1 - no_prob).item()))
+                continue
 
-        # If neither found, skip
-        if yes_logprob is None and no_logprob is None:
-            all_final_scores.append(-1.0)
-            continue
-        if yes_logprob is None:
-            no_prob = torch.exp(torch.tensor(no_logprob)) if no_logprob is not None else torch.tensor(0.0)
-            yes_prob = 1 - no_prob
-            score = yes_prob.item()
-            all_final_scores.append(score)
-            continue
+            yes_prob = torch.exp(torch.tensor(yes_logprob)) if yes_logprob is not None else torch.tensor(0.0)
+            no_prob  = torch.exp(torch.tensor(no_logprob)) if no_logprob is not None else torch.tensor(0.0)
+            score = yes_prob / (yes_prob + no_prob + 1e-18)
+            all_scores.append(float(score.item()))
 
-        # Convert from logprobs to probabilities
-        yes_prob = torch.exp(torch.tensor(yes_logprob)) if yes_logprob is not None else torch.tensor(0.0)
-        no_prob = torch.exp(torch.tensor(no_logprob)) if no_logprob is not None else torch.tensor(0.0)
-
-        # Normalize to get P(Yes)
-        score = yes_prob / (yes_prob + no_prob + 1e-18)
-        all_final_scores.append(score.item())
-    
-    return np.array(all_final_scores)
-
-
-# Drawing utils
-
+    return np.array(all_scores)
 
 def create_img_with_bbox(original_image, bbox_xywh):
     """Draws a single red bounding box on an image."""
@@ -319,55 +357,198 @@ def create_img_with_bbox(original_image, bbox_xywh):
     draw.rectangle(bbox_xyxy, outline='red', width=3)
     return img_with_bbox
 
-import os
-os.environ["VLLM_WORKER_MULTIPROC_METHOD"] = "spawn"
+# Reuse your existing helpers:
+# - load_qwen_model
+# - get_masked_image_vqa_scores_with_instructions
+# - create_img_with_bbox
+# - extract_instruction_block
+# - parse_class_name_from_user_msg
 
-import json
-import re
-import gc
-import argparse
-from pathlib import Path
-
-import numpy as np
-import torch
-from tqdm import tqdm
-from PIL import Image
-
-# ============================================================
-# Assumes these functions are already defined above (from Gautam):
-#   - load_qwen_model(model_name)
-#   - model_generate(messages, model, processor)
-#   - get_masked_image_vqa_scores_with_instructions(qwen_model, qwen_processor, dataset_instructions_json, prompt_list, pil_images, batch_size)
-#   - create_img_with_bbox(original_image, bbox_xywh)
-# ============================================================
-
-def parse_assistant_content(content: str):
+def build_unique_image_list_and_instruction_map(sharegpt_json_path: Path):
     """
-    Parses the JSON-style string from the assistant's response.
-    Input examples:
-      '[{"bbox_2d": [549, 287, 628, 570], "label": "Attack"}]'
-      '```json\n[{"bbox_2d":[...],"label":"Attack"}]\n```'
-      'Some prose ... [{"bbox_2d":[...],"label":"Attack"}] ...'
-    Returns: list[dict]
+    Returns:
+      unique_images: list[str]  # first-seen unique image paths
+      instr_map: dict[str, str] # class_name -> instruction_block
+      first_entry_by_image: dict[str, dict] # keep one ShareGPT entry per image for "messages" reuse
+      class_list_first_seen: list[str] # class names in first-seen order
     """
-    try:
-        # Grab the first top-level JSON list if present
-        m = re.search(r"\[[\s\S]*\]", content)
-        if m:
-            return json.loads(m.group(0))
-        return json.loads(content)
-    except Exception as e:
-        print(f"[WARN] Failed to parse content: {content[:120]}... Error: {e}")
-        return []
+    data = json.load(open(sharegpt_json_path, "r"))
+    seen = set()
+    unique_images = []
+    instr_map = {}
+    first_entry_by_image = {}
+    class_list_first_seen = []
+
+    for entry in data:
+        if "images" not in entry or not entry["images"]:
+            continue
+        img_path = entry["images"][0]
+
+        # first-seen unique image list (COCO-style)
+        if img_path not in seen:
+            seen.add(img_path)
+            unique_images.append(img_path)
+            first_entry_by_image[img_path] = entry
+
+        # build class -> instruction_block map from user prompt
+        if "messages" in entry and entry["messages"] and entry["messages"][0].get("role") == "user":
+            user_msg = entry["messages"][0].get("content", "")
+            cls = parse_class_name_from_user_msg(user_msg)
+            if cls:
+                if cls not in instr_map:
+                    instr_map[cls] = extract_instruction_block(user_msg)
+                if cls not in class_list_first_seen:
+                    class_list_first_seen.append(cls)
+
+    return unique_images, instr_map, first_entry_by_image, class_list_first_seen
 
 
-def parse_class_name_from_user_msg(user_msg: str) -> str:
+def load_coco_category_map(coco_gt_json: Path):
+    """
+    COCO GT json typically has:
+      categories: [{"id":1,"name":"Goalie"}, ...]
+    """
+    gt = json.load(open(coco_gt_json, "r"))
+    if "categories" not in gt:
+        return None
+    return {int(c["id"]): c["name"] for c in gt["categories"]}
+
+
+def load_coco_image_map(coco_gt_json: Path, image_root: str = None):
+    """
+    COCO GT json typically has:
+      images: [{"id":0,"file_name":"xxx.jpg"}, ...]
+    If file_name is relative and you pass image_root, we join it.
+    """
+    gt = json.load(open(coco_gt_json, "r"))
+    if "images" not in gt:
+        return None
+    out = {}
+    for im in gt["images"]:
+        iid = int(im["id"])
+        fn = im.get("file_name") or im.get("path") or im.get("coco_url")
+        if fn is None:
+            continue
+        if image_root is not None and not str(fn).startswith("/"):
+            fn = str(Path(image_root) / fn)
+        out[iid] = fn
+    return out
+def process_pred_file_write_coco(
+    pred_json_path: Path,
+    sharegpt_test_json_path: Path,
+    model,
+    processor,
+    out_pred_json: Path,
+    vqa_batch_size: int = 8,
+    coco_gt_json: Path = None,
+    image_root: str = None,
+    resume: bool = False,
+    max_images: int = None,
+    lora_request=None
+):
+    out_pred_json.parent.mkdir(parents=True, exist_ok=True)
+
+    # ShareGPT: instructions + unique images list
+    _, instr_map, _, _ = \
+        build_unique_image_list_and_instruction_map(sharegpt_test_json_path)
+
+    # Prefer official COCO maps
+    coco_cat_map = load_coco_category_map(coco_gt_json) if coco_gt_json else None
+    coco_img_map = load_coco_image_map(coco_gt_json, image_root=image_root) if coco_gt_json else None
+
+    preds = json.load(open(pred_json_path, "r"))
+
+    # If resuming, load existing out file and continue from there
+    done = set()
+    if resume and out_pred_json.exists():
+        preds = json.load(open(out_pred_json, "r"))
+        done = set(int(p["image_id"]) for p in preds)
+
+    # Group preds by image_id
+    preds_by_image = defaultdict(list)
+    for idx, p in enumerate(preds):
+        iid = int(p["image_id"])
+        preds_by_image[iid].append((idx, p))
+
+    # image_id -> image_path
+    if coco_img_map is None:
+        raise RuntimeError("coco_gt_json must contain images[]; cannot map image_id -> image_path.")
+    image_id_to_path = coco_img_map
+
+    if coco_cat_map is None:
+        raise RuntimeError("coco_gt_json must contain categories[]; cannot map category_id -> name.")
+    cat_id_to_name = coco_cat_map
+
+    processed_images = 0
+
+    for image_id in sorted(preds_by_image.keys()):
+        if resume and image_id in done:
+            continue
+        if max_images is not None and processed_images >= max_images:
+            break
+
+        image_path = image_id_to_path.get(image_id, None)
+        if image_path is None:
+            continue
+
+        try:
+            original_image = Image.open(image_path).convert("RGB")
+        except Exception:
+            continue
+
+        # Build VQA inputs in EXACT SAME ORDER as detections
+        vqa_images = []
+        vqa_prompts = []
+        det_refs = []  # det dict refs (same order)
+
+        dataset_instructions_json = {}
+
+        for _, det in preds_by_image[image_id]:
+            bbox_xywh = det["bbox"]
+            cid = int(det["category_id"])
+            label = cat_id_to_name.get(cid, str(cid))
+
+            vqa_images.append(create_img_with_bbox(original_image, bbox_xywh))
+            vqa_prompts.append(label)
+
+            det_refs.append(det)
+            dataset_instructions_json[label] = instr_map.get(
+                label, f"(No instructions found for class: {label})"
+            )
+
+        if not det_refs:
+            continue
+
+        vqa_scores = get_masked_image_vqa_scores_with_instructions(
+            model, processor, dataset_instructions_json, vqa_prompts, vqa_images, batch_size=vqa_batch_size, lora_request=lora_request
+        )
+        vqa_scores_list = vqa_scores.tolist() if hasattr(vqa_scores, "tolist") else list(vqa_scores)
+
+        if len(vqa_scores_list) != len(det_refs):
+            raise RuntimeError(
+                f"[VQA count mismatch] image_id={image_id}: dets={len(det_refs)} vs vqa={len(vqa_scores_list)}"
+            )
+
+        # Overwrite score in-place
+        for det, s in zip(det_refs, vqa_scores_list):
+            det["score"] = float(s)
+
+        processed_images += 1
+
+        # periodic write for safety
+        if processed_images % 50 == 0:
+            json.dump(preds, open(out_pred_json, "w"), indent=2)
+
+    json.dump(preds, open(out_pred_json, "w"), indent=2)
+    print(f"Done. Calibrated {processed_images} images. Wrote: {out_pred_json}")
+
+def parse_class_name_from_user_msg(user_msg: str):
     """
     Extract class name from:
       'Locate all of the following objects: Attack in the image ...'
     """
     m = re.search(r"Locate all of the following objects:\s*(.*?)\s+in the image", user_msg, flags=re.IGNORECASE)
-    return m.group(1).strip() if m else "object"
+    return m.group(1).strip() if m else None
 
 
 def extract_instruction_block(user_msg: str) -> str:
@@ -380,381 +561,109 @@ def extract_instruction_block(user_msg: str) -> str:
     return m.group(1).strip() if m else user_msg.strip()
 
 
-def xyxy_to_xywh(bbox_xyxy):
-    x1, y1, x2, y2 = map(float, bbox_xyxy)
-    return [x1, y1, x2 - x1, y2 - y1]
+from typing import List, Optional
 
+def discover_datasets_from_dataset_root(dataset_root: Path) -> List[str]:
+    # dataset_root/<dataset>/test/_annotations.coco.json
+    out = []
+    for p in dataset_root.glob("*/test/_annotations.coco.json"):
+        out.append(p.parent.parent.name)  # <dataset>
+    return sorted(set(out))
 
-def clamp_xyxy(bbox_xyxy, W, H):
-    x1, y1, x2, y2 = map(float, bbox_xyxy)
-    x1 = max(0.0, min(x1, W - 1))
-    y1 = max(0.0, min(y1, H - 1))
-    x2 = max(0.0, min(x2, W - 1))
-    y2 = max(0.0, min(y2, H - 1))
-    # Ensure proper ordering
-    if x2 < x1: x1, x2 = x2, x1
-    if y2 < y1: y1, y2 = y2, y1
-    return [x1, y1, x2, y2]
-
-
-import json
-import os
-from pathlib import Path
-
-# ... (Include your previously defined functions: load_qwen_model, create_img_with_bbox, etc.)
-
-def parse_assistant_content(content):
-    """
-    Parses the JSON-style string from the assistant's response.
-    Input: '[{"bbox_2d": [549, 287, 628, 570], "label": "Attack"}]'
-    """
-    try:
-        # Some models output prose before JSON, so we use regex to find the bracketed part
-        json_match = re.search(r'\[.*\]', content, re.DOTALL)
-        if json_match:
-            return json.loads(json_match.group())
-        return json.loads(content)
-    except Exception as e:
-        print(f"Failed to parse content: {content[:50]}... Error: {e}")
-        return []
-
-
-    #!/usr/bin/env python3
-"""
-Compute VQAScore for ALL annotated GT boxes in ShareGPT4V-style datasets.
-
-Input dataset format (per dataset):
-  /home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/<dataset_name>/train/by_class_with_description.json
-
-Each entry contains:
-  - entry["images"][0] : image path
-  - entry["messages"][0]["content"] : user prompt with class + instructions
-  - entry["messages"][1]["content"] : assistant JSON list of GT boxes: [{"bbox_2d":[x1,y1,x2,y2],"label":"Class"}]
-
-This script:
-  - loads a Qwen-VL model via vLLM (your load_qwen_model)
-  - draws each GT box as a red box
-  - asks VQA "Yes/No" using your get_masked_image_vqa_scores_with_instructions
-  - saves per-dataset JSONL so it's easy to reconstruct ShareGPT later.
-
-Output per dataset (default):
-  <output_root>/<dataset_name>/train/vqascore_gt.jsonl
-
-Resumable:
-  --resume will skip sample_idx already present in output.
-"""
-
-import os
-os.environ["VLLM_WORKER_MULTIPROC_METHOD"] = "spawn"
-
-import re
-import json
-import argparse
-from pathlib import Path
-from datetime import datetime
-from typing import List, Dict, Any, Optional, Tuple
-
-from tqdm import tqdm
-from PIL import Image
-
-import numpy as np
-
-# =========================
-# EXPECTED to exist (from your provided script)
-#   - load_qwen_model(model_name) -> (model, processor)
-#   - get_masked_image_vqa_scores_with_instructions(qwen_model, qwen_processor, dataset_instructions_json, prompt_list, pil_images, batch_size)
-#   - create_img_with_bbox(original_image, bbox_xywh)  # expects xywh
-# =========================
-
-
-def parse_assistant_content(content: str) -> List[Dict[str, Any]]:
-    """Parse assistant JSON list, tolerant to prose/code fences."""
-    try:
-        m = re.search(r"\[[\s\S]*\]", content)
-        if m:
-            return json.loads(m.group(0))
-        return json.loads(content)
-    except Exception:
-        return []
-
-
-def parse_class_name_from_user_msg(user_msg: str) -> Optional[str]:
-    """Extract class name from 'Locate all of the following objects: X in the image'."""
-    m = re.search(
-        r"Locate all of the following objects:\s*(.*?)\s+in the image",
-        user_msg,
-        flags=re.IGNORECASE,
-    )
-    return m.group(1).strip() if m else None
-
-
-def extract_instruction_block(user_msg: str) -> str:
-    """
-    Extract the dataset instruction block used by VQA prompt:
-      after 'Use the following annotator instructions to improve detection accuracy:'
-    If not found, return full user_msg.
-    """
-    m = re.search(
-        r"Use the following annotator instructions.*?:\s*(.*)\Z",
-        user_msg,
-        flags=re.DOTALL,
-    )
-    return m.group(1).strip() if m else user_msg.strip()
-
-
-def clamp_xyxy(b: List[float], W: int, H: int) -> List[float]:
-    x1, y1, x2, y2 = map(float, b)
-    x1 = max(0.0, min(x1, W - 1))
-    y1 = max(0.0, min(y1, H - 1))
-    x2 = max(0.0, min(x2, W - 1))
-    y2 = max(0.0, min(y2, H - 1))
-    if x2 < x1:
-        x1, x2 = x2, x1
-    if y2 < y1:
-        y1, y2 = y2, y1
-    return [x1, y1, x2, y2]
-
-
-def xyxy_to_xywh(b: List[float]) -> List[float]:
-    x1, y1, x2, y2 = map(float, b)
-    return [x1, y1, x2 - x1, y2 - y1]
-
-def scale_xyxy_from_resized(b_xyxy, W, H, resized_size=1000):
-    """Map bbox from resized_size×resized_size coords back to original (W,H)."""
-    x1, y1, x2, y2 = map(float, b_xyxy)
-    sx = W / float(resized_size)
-    sy = H / float(resized_size)
-    return [x1 * sx, y1 * sy, x2 * sx, y2 * sy]
-
-def load_existing_indices(jsonl_path: Path) -> set:
-    """Read existing JSONL and collect processed (sample_idx) to enable resume."""
-    done = set()
-    if not jsonl_path.exists():
-        return done
-    with jsonl_path.open("r") as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                obj = json.loads(line)
-                if "sample_idx" in obj:
-                    done.add(int(obj["sample_idx"]))
-            except Exception:
-                continue
-    return done
-
-
-def process_dataset_file(
-    ds_json_path: Path,
-    model,
-    processor,
-    output_jsonl: Path,
-    vqa_batch_size: int,
-    resume: bool,
-    max_samples: Optional[int] = None,
-) -> Tuple[int, int]:
-    """
-    Compute VQAScore for all GT boxes in one dataset file and append to JSONL.
-
-    Returns:
-      (num_samples_written, num_boxes_scored)
-    """
-    output_jsonl.parent.mkdir(parents=True, exist_ok=True)
-
-    # resume support
-    done_indices = load_existing_indices(output_jsonl) if resume else set()
-
-    with ds_json_path.open("r") as f:
-        data = json.load(f)
-
-    written_samples = 0
-    scored_boxes_total = 0
-
-    # open output in append mode for streaming writes
-    out_f = output_jsonl.open("a")
-
-    try:
-        for idx, entry in enumerate(tqdm(data, desc=f"{ds_json_path.parent.parent.name}/train")):
-            if max_samples is not None and idx >= max_samples:
-                break
-            if resume and idx in done_indices:
-                continue
-
-            # Basic validation
-            if "images" not in entry or not entry["images"]:
-                continue
-            if "messages" not in entry or len(entry["messages"]) < 2:
-                continue
-
-            image_path = entry["images"][0]
-            user_msg = entry["messages"][0].get("content", "")
-            assistant_msg = entry["messages"][1].get("content", "")
-
-            gt_boxes = parse_assistant_content(assistant_msg)
-            if not gt_boxes:
-                # still write a record (optional). We'll skip to keep file compact.
-                continue
-
-            # Determine instruction map for VQA function
-            class_name_from_prompt = parse_class_name_from_user_msg(user_msg)
-            instr_block = extract_instruction_block(user_msg)
-
-            # Load image once
-            try:
-                original_image = Image.open(image_path).convert("RGB")
-            except Exception:
-                # image missing/corrupt
-                continue
-
-            W, H = original_image.size
-
-            # Build per-box images + prompts
-            vqa_images = []
-            vqa_prompts = []
-            cleaned_boxes = []
-
-            for box in gt_boxes:
-                if "bbox_2d" not in box:
-                    continue
-                label = box.get("label", class_name_from_prompt or "object")
-                bbox_xyxy = box["bbox_2d"]
-
-                # GT: scale from 1000x1000 coord space back to original pixels
-                bbox_xyxy = scale_xyxy_from_resized(bbox_xyxy, W, H, resized_size=1000)
-
-                # Clamp + convert to xywh for your create_img_with_bbox
-                bbox_xyxy = clamp_xyxy(bbox_xyxy, W, H)
-                bbox_xywh = xyxy_to_xywh(bbox_xyxy)
-
-                try:
-                    img_with_box = create_img_with_bbox(original_image, bbox_xywh)
-                except Exception:
-                    continue
-
-                vqa_images.append(img_with_box)
-                vqa_prompts.append(label)
-                cleaned_boxes.append(
-                    {
-                        "bbox_2d": [float(x) for x in bbox_xyxy],
-                        "bbox_xywh": [float(x) for x in bbox_xywh],
-                        "label": label,
-                    }
-                )
-
-            if not cleaned_boxes:
-                continue
-
-            # dataset_instructions_json expected mapping class->instructions
-            # We provide instructions block for ALL labels encountered (safe fallback).
-            # If a label differs from the class name in prompt, still map it to the same instruction block;
-            # this matches your current VQA prompt design (instructions per class).
-            dataset_instructions_json = {cb["label"]: instr_block for cb in cleaned_boxes}
-            if class_name_from_prompt is not None:
-                dataset_instructions_json[class_name_from_prompt] = instr_block
-
-            # Score (note: your function ignores batch_size internally right now, but we pass it anyway)
-            try:
-                vqa_scores = get_masked_image_vqa_scores_with_instructions(
-                    model,
-                    processor,
-                    dataset_instructions_json,
-                    vqa_prompts,
-                    vqa_images,
-                    batch_size=vqa_batch_size,
-                )
-            except Exception:
-                continue
-
-            if isinstance(vqa_scores, np.ndarray):
-                vqa_scores_list = vqa_scores.tolist()
-            else:
-                vqa_scores_list = list(vqa_scores)
-
-            # Build output record: keep everything needed to reconstruct ShareGPT later
-            record = {
-                "dataset": ds_json_path.parent.parent.name,  # <dataset_name>
-                "split": "train",
-                "sample_idx": idx,
-                "images": entry.get("images", []),
-                "gt_boxes": cleaned_boxes,
-                "vqa_score": [
-                    {
-                        "bbox_2d": cb["bbox_2d"],
-                        "label": cb["label"],
-                        "score": float(s),
-                    }
-                    for cb, s in zip(cleaned_boxes, vqa_scores_list)
-                ],
-            }
-
-            out_f.write(json.dumps(record) + "\n")
-            out_f.flush()
-
-            written_samples += 1
-            scored_boxes_total += len(cleaned_boxes)
-
-    finally:
-        out_f.close()
-
-    return written_samples, scored_boxes_total
-
-
-def main():
+def main_pred():
+    import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_name", type=str, default="Qwen3-VL-8B-Instruct")
-    parser.add_argument("--dataset_root", type=str, default="/home/siyili/LLaMA-Factory/sharegpt4v_datasets/")
-    parser.add_argument("--output_root", type=str, default="/scratch/siyili/vqascore/")
-    parser.add_argument("--split", type=str, default="train", choices=["train","test","valid"])
-    parser.add_argument("--dataset_name", type=str, default=None, help="If set, only process this dataset folder name.")
+
+    parser.add_argument("--model_name", type=str, required=True)
+
+    # roots (only what we truly need)
+    parser.add_argument("--dataset_root", type=str, required=True,
+                        help="e.g. /scratch/siyili/rf20vl-3X/")
+    parser.add_argument("--sharegpt_root", type=str, required=True,
+                        help="e.g. /home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/")
+    parser.add_argument("--pred_json_root", type=str, required=True,
+                        help="dir containing predictions_<dataset>.json")
+    parser.add_argument("--sft_lora", type=str, default=None)
+
     parser.add_argument("--vqa_batch_size", type=int, default=8)
-    parser.add_argument("--resume", action="store_true", help="Skip sample_idx already present in output JSONL.")
-    parser.add_argument("--max_samples", type=int, default=None)
+    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--max_images", type=int, default=None)
+
     args = parser.parse_args()
 
-    # 1) Load Qwen model once
-    model, processor = load_qwen_model(args.model_name)
-
     dataset_root = Path(args.dataset_root)
-    output_root = Path(args.output_root)
+    sharegpt_root = Path(args.sharegpt_root)
+    pred_json_root = Path(args.pred_json_root)
 
-    # 2) Find dataset files
-    if args.dataset_name:
-        ds_file = dataset_root / args.dataset_name / args.split / "by_class_with_description.json"
-        dataset_files = [ds_file] if ds_file.exists() else []
-    else:
-        dataset_files = list(dataset_root.rglob(f"{args.split}/by_class_with_description.json"))
+    # hard-coded output dir: "<pred_json_root>_vqa" (same parent)
+    out_dir = pred_json_root.parent / f"{pred_json_root.name}_vqa"
+    out_dir.mkdir(parents=True, exist_ok=True)
 
-    if not dataset_files:
-        raise FileNotFoundError(f"No dataset files found under {dataset_root} matching */{args.split}/by_class_with_description.json")
+    # always auto-discover from dataset_root
+    datasets = discover_datasets_from_dataset_root(dataset_root)
+    print(f"Found {len(datasets)} datasets under dataset_root.")
 
-    total_written = 0
-    total_boxes = 0
+    model, processor = load_qwen_model(args.model_name, enable_lora=args.sft_lora is not None)
+    skipped = 0
+    processed = 0
 
-    for ds_path in dataset_files:
-        dataset_name = ds_path.parent.parent.name
-        out_jsonl = output_root / dataset_name / args.split / "vqascore_gt.jsonl"
+    for ds in datasets:
+        coco_gt_json = dataset_root / ds / "test" / "_annotations.coco.json"
+        image_root   = dataset_root / ds / "test"
+        sharegpt_test_json = sharegpt_root / ds / "test" / "by_class_with_description.json"
 
-        print(f"\n=== Processing dataset: {dataset_name}")
-        print(f"Input:  {ds_path}")
-        print(f"Output: {out_jsonl}")
+        pred_json = pred_json_root / f"predictions_{ds}.json"
+        out_pred_json = out_dir / f"predictions_{ds}.json"
 
-        written, boxes = process_dataset_file(
-            ds_path,
-            model,
-            processor,
-            out_jsonl,
+        # always skip missing
+        if not coco_gt_json.exists():
+            skipped += 1
+            continue
+        if not image_root.exists():
+            skipped += 1
+            continue
+        if not sharegpt_test_json.exists():
+            skipped += 1
+            continue
+        if not pred_json.exists():
+            skipped += 1
+            continue
+
+        print(f"\n=== {ds} ===")
+        print("pred_json:", pred_json)
+        print("out_pred_json:", out_pred_json)
+
+        lora_request = None
+        if args.sft_lora is not None:
+            lora_root = Path(args.sft_lora)
+            # adjust if your folder name differs (e.g., "single_instruction")
+            lora_ds_dir = lora_root / ds / "single_instruction"
+            ckpt_dir = find_latest_lora_checkpoint(lora_ds_dir)
+
+            if ckpt_dir is not None:
+                # stable adapter_id; any int is fine as long as unique-ish
+                adapter_id = abs(hash(ds)) % 1_000_000_000
+                lora_request = LoRARequest(lora_name=ds, lora_int_id=adapter_id, lora_path=str(ckpt_dir))
+            else:
+                # no LoRA for this dataset -> fall back to base
+                lora_request = None
+
+        process_pred_file_write_coco(
+            pred_json_path=pred_json,
+            sharegpt_test_json_path=sharegpt_test_json,
+            model=model,
+            processor=processor,
+            out_pred_json=out_pred_json,
             vqa_batch_size=args.vqa_batch_size,
+            coco_gt_json=coco_gt_json,
+            image_root=str(image_root),
             resume=args.resume,
-            max_samples=args.max_samples,
+            max_images=args.max_images,
+            lora_request=lora_request,
         )
+        processed += 1
 
-        print(f"Done {dataset_name}: wrote {written} samples, scored {boxes} boxes.")
-        total_written += written
-        total_boxes += boxes
-
-    print(f"\nALL DONE. Wrote {total_written} samples total, scored {total_boxes} boxes total.")
-
+    print(f"\nDone. processed={processed}, skipped={skipped}, out_dir={out_dir}")
 
 if __name__ == "__main__":
-    main()
+    main_pred()
