@@ -68,18 +68,27 @@ def convert_bbox_to_xyxy(bbox: List[float]) -> List[float]:
     x, y, w, h = bbox
     return [x, y, x + w, y + h]
 
+# def format_detections_response(annotations: List[Dict], class_mapping: Dict[int, str]) -> str:
+#     """Format annotations as JSON response - always returns a list."""
+#     detections = []
+#     for ann in annotations:
+#         bbox_xyxy = convert_bbox_to_xyxy(ann['bbox'])
+#         detection = {
+#             "bbox_2d": bbox_xyxy,
+#             "label": class_mapping[ann['category_id']]
+#         }
+#         detections.append(detection)
+    
+#     return json.dumps(detections)
 def format_detections_response(annotations: List[Dict], class_mapping: Dict[int, str],
                                img_w: int, img_h: int, coord_base: float = 1000.0) -> str:
     detections = []
     for ann in annotations:
         bbox_xyxy = convert_bbox_to_xyxy(ann['bbox'])  # pixel xyxy
-        if coord_base is not None:
-            bbox_2d = xyxy_to_1000(bbox_xyxy, img_w, img_h, coord_base)
-        else:
-            bbox_2d = bbox_xyxy
+        bbox_1000 = xyxy_to_1000(bbox_xyxy, img_w, img_h, coord_base)
 
         detection = {
-            "bbox_2d": bbox_2d,
+            "bbox_2d": bbox_1000,
             "label": class_mapping[ann['category_id']]
         }
         detections.append(detection)
@@ -108,6 +117,8 @@ def generate_by_image_datasets(coco_data: Dict, prompts: Dict, image_url_base: s
         image_info = image_mapping[image_id]
         img_w, img_h = image_info["width"], image_info["height"]
         response = format_detections_response(annotations, class_mapping, img_w, img_h)
+
+        # response = format_detections_response(annotations, class_mapping)
         
         # Label only dataset
         label_only_conversation = {
@@ -205,6 +216,7 @@ def generate_by_class_datasets(coco_data: Dict, prompts: Dict, image_url_base: s
             image_info = image_mapping[image_id]
             img_w, img_h = image_info["width"], image_info["height"]
             response = format_detections_response(annotations, class_mapping, img_w, img_h)
+            # response = format_detections_response(annotations, class_mapping)
 
             label_only_conversation = {
                 "messages": [
@@ -225,6 +237,58 @@ def generate_by_class_datasets(coco_data: Dict, prompts: Dict, image_url_base: s
             with_description_data.append(with_description_conversation)
 
     return label_only_data, with_description_data
+
+
+def generate_by_class_datasets_for_eval(coco_data: Dict, prompts: Dict, image_url_base: str = "") -> tuple:
+    """
+    Generate by_class datasets for evaluation.
+    Unlike training, this queries every class for every image so false positives can be measured.
+    """
+    class_mapping = get_class_name_mapping(coco_data)
+    image_mapping = get_image_info_mapping(coco_data)
+    annotations_by_image_class = group_annotations_by_image_and_class(coco_data)
+
+    # Resolve prompt keys once; classes without prompts are skipped.
+    class_id_to_prompt_key = {}
+    for class_id, class_name in class_mapping.items():
+        prompt_key = resolve_prompt_key(prompts, class_name)
+        if prompt_key is not None:
+            class_id_to_prompt_key[class_id] = prompt_key
+
+    label_only_data = []
+    with_description_data = []
+
+    for image_id, image_info in image_mapping.items():
+        image_url = os.path.join(image_url_base, image_info["file_name"]) if image_url_base else image_info["file_name"]
+        img_w, img_h = image_info["width"], image_info["height"]
+        class_annotations = annotations_by_image_class.get(image_id, {})
+
+        # Query all classes for this image, not only classes present in GT.
+        for class_id, prompt_key in class_id_to_prompt_key.items():
+            annotations = class_annotations.get(class_id, [])
+            response = format_detections_response(annotations, class_mapping, img_w, img_h)
+
+            label_only_data.append({
+                "messages": [
+                    {"content": f"<image>{prompts[prompt_key]['label_only']}", "role": "user"},
+                    {"content": response, "role": "assistant"},
+                ],
+                "images": [image_url],
+            })
+
+            with_description_data.append({
+                "messages": [
+                    {"content": f"<image>{prompts[prompt_key]['with_description']}", "role": "user"},
+                    {"content": response, "role": "assistant"},
+                ],
+                "images": [image_url],
+            })
+
+    return label_only_data, with_description_data
+
+
+def _normalize_split_name(split: str) -> str:
+    return split.strip().strip("/").lower()
 
 
 def save_dataset(data: List[Dict], output_path: str):
@@ -250,10 +314,20 @@ def generate_all_datasets_for_split(coco_path: str, prompts_path: str, output_di
         coco_data, prompts, base_path
     )
     
+    split_name = _normalize_split_name(split)
+    generate_eval_style = split_name in {"valid", "test"}
+
     print("  - by_class datasets...")
-    by_class_label_only, by_class_with_description = generate_by_class_datasets(
-        coco_data, prompts, base_path
-    )
+    if generate_eval_style:
+        print("    using eval mode: query all classes per image")
+        by_class_label_only, by_class_with_description = generate_by_class_datasets_for_eval(
+            coco_data, prompts, base_path
+        )
+    else:
+        print("    using train mode: query only classes present in each image")
+        by_class_label_only, by_class_with_description = generate_by_class_datasets(
+            coco_data, prompts, base_path
+        )
     
     # Save datasets
     datasets = {
@@ -351,8 +425,8 @@ def process_all_datasets(dataset_configs: List[Dict], output_base_dir: str):
 def main():
     """Main function to process multiple datasets and splits."""
     import os 
-    root_dir = "/scratch/siyili/rf20vl-6X"
-    output_base_dir = "sharegpt4v_datasets-6X"
+    root_dir = "/scratch/siyili/rf20vl"
+    output_base_dir = "sharegpt4v_datasets_refined"
 
     dataset_configs = []
     
