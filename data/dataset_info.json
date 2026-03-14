@@ -1,742 +1,4497 @@
 {
-  "identity": {
-    "file_name": "identity.json"
+    "rf100vl_single_instruction": {
+        "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/rf100vl/train/by_class_with_description.json",
+        "formatting": "sharegpt",
+        "columns": {
+            "messages": "messages",
+            "images": "images"
+        },
+        "tags": {
+            "role_tag": "role",
+            "content_tag": "content",
+            "user_tag": "user",
+            "assistant_tag": "assistant"
+        }
+    },
+    "actions_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/actions/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
   },
-  "alpaca_en_demo": {
-    "file_name": "alpaca_en_demo.json"
+  "actions_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/actions/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
   },
-  "alpaca_zh_demo": {
-    "file_name": "alpaca_zh_demo.json"
+  "actions_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/actions/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
   },
-  "glaive_toolcall_en_demo": {
-    "file_name": "glaive_toolcall_en_demo.json",
+  "actions_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/actions/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aerial-airport_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aerial-airport/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aerial-airport_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aerial-airport/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aerial-airport_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aerial-airport/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aerial-airport_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aerial-airport/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "all-elements_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/all-elements/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "all-elements_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/all-elements/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "all-elements_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/all-elements/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "all-elements_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/all-elements/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aquarium-combined_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aquarium-combined/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aquarium-combined_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aquarium-combined/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aquarium-combined_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aquarium-combined/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aquarium-combined_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aquarium-combined/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "defect-detection_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/defect-detection/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "defect-detection_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/defect-detection/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "defect-detection_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/defect-detection/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "defect-detection_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/defect-detection/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "dentalai_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/dentalai/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "dentalai_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/dentalai/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "dentalai_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/dentalai/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "dentalai_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/dentalai/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "flir-camera-objects_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/flir-camera-objects/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "flir-camera-objects_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/flir-camera-objects/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "flir-camera-objects_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/flir-camera-objects/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "flir-camera-objects_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/flir-camera-objects/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "gwhd2021_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/gwhd2021/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "gwhd2021_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/gwhd2021/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "gwhd2021_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/gwhd2021/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "gwhd2021_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/gwhd2021/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "lacrosse-object-detection_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/lacrosse-object-detection/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "lacrosse-object-detection_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/lacrosse-object-detection/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "lacrosse-object-detection_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/lacrosse-object-detection/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "lacrosse-object-detection_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/lacrosse-object-detection/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "new-defects-in-wood_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/new-defects-in-wood/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "new-defects-in-wood_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/new-defects-in-wood/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "new-defects-in-wood_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/new-defects-in-wood/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "new-defects-in-wood_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/new-defects-in-wood/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "orionproducts_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/orionproducts/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "orionproducts_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/orionproducts/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "orionproducts_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/orionproducts/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "orionproducts_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/orionproducts/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "paper-parts_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/paper-parts/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "paper-parts_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/paper-parts/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "paper-parts_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/paper-parts/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "paper-parts_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/paper-parts/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "recode-waste_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/recode-waste/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "recode-waste_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/recode-waste/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "recode-waste_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/recode-waste/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "recode-waste_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/recode-waste/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "soda-bottles_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/soda-bottles/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "soda-bottles_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/soda-bottles/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "soda-bottles_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/soda-bottles/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "soda-bottles_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/soda-bottles/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "the-dreidel-project_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/the-dreidel-project/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "the-dreidel-project_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/the-dreidel-project/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "the-dreidel-project_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/the-dreidel-project/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "the-dreidel-project_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/the-dreidel-project/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "trail-camera_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/trail-camera/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "trail-camera_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/trail-camera/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "trail-camera_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/trail-camera/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "trail-camera_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/trail-camera/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "water-meter_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/water-meter/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "water-meter_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/water-meter/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "water-meter_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/water-meter/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "water-meter_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/water-meter/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wb-prova_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wb-prova/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wb-prova_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wb-prova/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wb-prova_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wb-prova/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wb-prova_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wb-prova/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wildfire-smoke_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wildfire-smoke/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wildfire-smoke_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wildfire-smoke/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wildfire-smoke_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wildfire-smoke/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wildfire-smoke_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wildfire-smoke/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "x-ray-id_single_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/x-ray-id/train/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "x-ray-id_single_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/x-ray-id/train/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "x-ray-id_multi_class": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/x-ray-id/train/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "x-ray-id_multi_instruction": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/x-ray-id/train/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+    "actions_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/actions/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "actions_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/actions/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "actions_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/actions/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "actions_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/actions/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aerial-airport_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aerial-airport/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aerial-airport_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aerial-airport/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aerial-airport_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aerial-airport/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aerial-airport_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aerial-airport/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "all-elements_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/all-elements/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "all-elements_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/all-elements/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "all-elements_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/all-elements/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "all-elements_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/all-elements/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aquarium-combined_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aquarium-combined/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aquarium-combined_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aquarium-combined/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aquarium-combined_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aquarium-combined/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "aquarium-combined_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/aquarium-combined/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "defect-detection_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/defect-detection/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "defect-detection_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/defect-detection/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "defect-detection_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/defect-detection/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "defect-detection_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/defect-detection/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "dentalai_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/dentalai/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "dentalai_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/dentalai/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "dentalai_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/dentalai/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "dentalai_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/dentalai/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "flir-camera-objects_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/flir-camera-objects/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "flir-camera-objects_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/flir-camera-objects/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "flir-camera-objects_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/flir-camera-objects/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "flir-camera-objects_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/flir-camera-objects/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "gwhd2021_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/gwhd2021/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "gwhd2021_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/gwhd2021/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "gwhd2021_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/gwhd2021/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "gwhd2021_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/gwhd2021/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "lacrosse-object-detection_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/lacrosse-object-detection/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "lacrosse-object-detection_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/lacrosse-object-detection/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "lacrosse-object-detection_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/lacrosse-object-detection/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "lacrosse-object-detection_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/lacrosse-object-detection/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "new-defects-in-wood_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/new-defects-in-wood/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "new-defects-in-wood_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/new-defects-in-wood/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "new-defects-in-wood_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/new-defects-in-wood/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "new-defects-in-wood_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/new-defects-in-wood/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "orionproducts_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/orionproducts/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "orionproducts_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/orionproducts/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "orionproducts_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/orionproducts/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "orionproducts_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/orionproducts/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "paper-parts_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/paper-parts/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "paper-parts_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/paper-parts/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "paper-parts_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/paper-parts/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "paper-parts_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/paper-parts/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "recode-waste_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/recode-waste/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "recode-waste_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/recode-waste/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "recode-waste_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/recode-waste/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "recode-waste_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/recode-waste/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "soda-bottles_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/soda-bottles/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "soda-bottles_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/soda-bottles/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "soda-bottles_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/soda-bottles/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "soda-bottles_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/soda-bottles/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "the-dreidel-project_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/the-dreidel-project/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "the-dreidel-project_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/the-dreidel-project/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "the-dreidel-project_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/the-dreidel-project/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "the-dreidel-project_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/the-dreidel-project/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "trail-camera_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/trail-camera/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "trail-camera_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/trail-camera/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "trail-camera_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/trail-camera/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "trail-camera_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/trail-camera/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "water-meter_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/water-meter/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "water-meter_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/water-meter/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "water-meter_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/water-meter/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "water-meter_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/water-meter/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wb-prova_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wb-prova/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wb-prova_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wb-prova/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wb-prova_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wb-prova/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wb-prova_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wb-prova/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wildfire-smoke_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wildfire-smoke/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wildfire-smoke_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wildfire-smoke/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wildfire-smoke_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wildfire-smoke/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "wildfire-smoke_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/wildfire-smoke/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "x-ray-id_single_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/x-ray-id/valid/by_class_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "x-ray-id_single_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/x-ray-id/valid/by_class_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "x-ray-id_multi_class_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/x-ray-id/valid/by_image_label_only.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+  "x-ray-id_multi_instruction_validation": {
+      "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-3X/x-ray-id/valid/by_image_with_description.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages",
+          "images": "images"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant"
+      }
+  },
+
+  "actions_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/actions/train/by_class_label_only.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "conversations",
-      "tools": "tools"
-    }
-  },
-  "glaive_toolcall_zh_demo": {
-    "file_name": "glaive_toolcall_zh_demo.json",
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "conversations",
-      "tools": "tools"
-    }
-  },
-  "mllm_demo": {
-    "file_name": "mllm_demo.json",
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "messages",
-      "images": "images"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "mllm_audio_demo": {
-    "file_name": "mllm_audio_demo.json",
+},
+"actions_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/actions/train/by_class_with_description.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "messages",
-      "audios": "audios"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "mllm_video_demo": {
-    "file_name": "mllm_video_demo.json",
+},
+"actions_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/actions/train/by_image_label_only.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "messages",
-      "videos": "videos"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "mllm_video_audio_demo": {
-    "file_name": "mllm_video_audio_demo.json",
+},
+"actions_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/actions/train/by_image_with_description.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "messages",
-      "videos": "videos",
-      "audios": "audios"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "alpaca_en": {
-    "hf_hub_url": "llamafactory/alpaca_en",
-    "ms_hub_url": "llamafactory/alpaca_en",
-    "om_hub_url": "HaM/alpaca_en"
-  },
-  "alpaca_zh": {
-    "hf_hub_url": "llamafactory/alpaca_zh",
-    "ms_hub_url": "llamafactory/alpaca_zh"
-  },
-  "alpaca_gpt4_en": {
-    "hf_hub_url": "llamafactory/alpaca_gpt4_en",
-    "ms_hub_url": "llamafactory/alpaca_gpt4_en"
-  },
-  "alpaca_gpt4_zh": {
-    "hf_hub_url": "llamafactory/alpaca_gpt4_zh",
-    "ms_hub_url": "llamafactory/alpaca_gpt4_zh",
-    "om_hub_url": "State_Cloud/alpaca-gpt4-data-zh"
-  },
-  "glaive_toolcall_en": {
-    "hf_hub_url": "llamafactory/glaive_toolcall_en",
+},
+"aerial-airport_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aerial-airport/train/by_class_label_only.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "conversations",
-      "tools": "tools"
-    }
-  },
-  "glaive_toolcall_zh": {
-    "hf_hub_url": "llamafactory/glaive_toolcall_zh",
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "conversations",
-      "tools": "tools"
-    }
-  },
-  "lima": {
-    "hf_hub_url": "llamafactory/lima",
-    "formatting": "sharegpt"
-  },
-  "guanaco": {
-    "hf_hub_url": "JosephusCheung/GuanacoDataset",
-    "ms_hub_url": "AI-ModelScope/GuanacoDataset"
-  },
-  "belle_2m": {
-    "hf_hub_url": "BelleGroup/train_2M_CN",
-    "ms_hub_url": "AI-ModelScope/train_2M_CN"
-  },
-  "belle_1m": {
-    "hf_hub_url": "BelleGroup/train_1M_CN",
-    "ms_hub_url": "AI-ModelScope/train_1M_CN"
-  },
-  "belle_0.5m": {
-    "hf_hub_url": "BelleGroup/train_0.5M_CN",
-    "ms_hub_url": "AI-ModelScope/train_0.5M_CN"
-  },
-  "belle_dialog": {
-    "hf_hub_url": "BelleGroup/generated_chat_0.4M",
-    "ms_hub_url": "AI-ModelScope/generated_chat_0.4M"
-  },
-  "belle_math": {
-    "hf_hub_url": "BelleGroup/school_math_0.25M",
-    "ms_hub_url": "AI-ModelScope/school_math_0.25M"
-  },
-  "open_platypus": {
-    "hf_hub_url": "garage-bAInd/Open-Platypus",
-    "ms_hub_url": "AI-ModelScope/Open-Platypus"
-  },
-  "codealpaca": {
-    "hf_hub_url": "sahil2801/CodeAlpaca-20k",
-    "ms_hub_url": "AI-ModelScope/CodeAlpaca-20k"
-  },
-  "alpaca_cot": {
-    "hf_hub_url": "QingyiSi/Alpaca-CoT",
-    "ms_hub_url": "AI-ModelScope/Alpaca-CoT"
-  },
-  "openorca": {
-    "hf_hub_url": "Open-Orca/OpenOrca",
-    "ms_hub_url": "AI-ModelScope/OpenOrca",
-    "columns": {
-      "prompt": "question",
-      "response": "response",
-      "system": "system_prompt"
-    }
-  },
-  "slimorca": {
-    "hf_hub_url": "Open-Orca/SlimOrca",
-    "formatting": "sharegpt"
-  },
-  "mathinstruct": {
-    "hf_hub_url": "TIGER-Lab/MathInstruct",
-    "ms_hub_url": "AI-ModelScope/MathInstruct",
-    "columns": {
-      "prompt": "instruction",
-      "response": "output"
-    }
-  },
-  "firefly": {
-    "hf_hub_url": "YeungNLP/firefly-train-1.1M",
-    "columns": {
-      "prompt": "input",
-      "response": "target"
-    }
-  },
-  "wikiqa": {
-    "hf_hub_url": "wiki_qa",
-    "columns": {
-      "prompt": "question",
-      "response": "answer"
-    }
-  },
-  "webqa": {
-    "hf_hub_url": "suolyer/webqa",
-    "ms_hub_url": "AI-ModelScope/webqa",
-    "columns": {
-      "prompt": "input",
-      "response": "output"
-    }
-  },
-  "webnovel": {
-    "hf_hub_url": "zxbsmk/webnovel_cn",
-    "ms_hub_url": "AI-ModelScope/webnovel_cn"
-  },
-  "nectar_sft": {
-    "hf_hub_url": "AstraMindAI/SFT-Nectar",
-    "ms_hub_url": "AI-ModelScope/SFT-Nectar"
-  },
-  "deepctrl": {
-    "ms_hub_url": "deepctrl/deepctrl-sft-data"
-  },
-  "adgen_train": {
-    "hf_hub_url": "HasturOfficial/adgen",
-    "ms_hub_url": "AI-ModelScope/adgen",
-    "split": "train",
-    "columns": {
-      "prompt": "content",
-      "response": "summary"
-    }
-  },
-  "adgen_eval": {
-    "hf_hub_url": "HasturOfficial/adgen",
-    "ms_hub_url": "AI-ModelScope/adgen",
-    "split": "validation",
-    "columns": {
-      "prompt": "content",
-      "response": "summary"
-    }
-  },
-  "sharegpt_hyper": {
-    "hf_hub_url": "totally-not-an-llm/sharegpt-hyperfiltered-3k",
-    "formatting": "sharegpt"
-  },
-  "sharegpt4": {
-    "hf_hub_url": "shibing624/sharegpt_gpt4",
-    "ms_hub_url": "AI-ModelScope/sharegpt_gpt4",
-    "formatting": "sharegpt"
-  },
-  "ultrachat_200k": {
-    "hf_hub_url": "HuggingFaceH4/ultrachat_200k",
-    "ms_hub_url": "AI-ModelScope/ultrachat_200k",
-    "split": "train_sft",
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "messages"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "infinity_instruct": {
-    "hf_hub_url": "BAAI/Infinity-Instruct",
-    "formatting": "sharegpt"
-  },
-  "agent_instruct": {
-    "hf_hub_url": "THUDM/AgentInstruct",
-    "ms_hub_url": "ZhipuAI/AgentInstruct",
-    "formatting": "sharegpt"
-  },
-  "lmsys_chat": {
-    "hf_hub_url": "lmsys/lmsys-chat-1m",
-    "ms_hub_url": "AI-ModelScope/lmsys-chat-1m",
+},
+"aerial-airport_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aerial-airport/train/by_class_with_description.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "conversation"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "evol_instruct": {
-    "hf_hub_url": "WizardLM/WizardLM_evol_instruct_V2_196k",
-    "ms_hub_url": "AI-ModelScope/WizardLM_evol_instruct_V2_196k",
-    "formatting": "sharegpt"
-  },
-  "glaive_toolcall_100k": {
-    "hf_hub_url": "hiyouga/glaive-function-calling-v2-sharegpt",
+},
+"aerial-airport_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aerial-airport/train/by_image_label_only.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "conversations",
-      "tools": "tools"
-    }
-  },
-  "cosmopedia": {
-    "hf_hub_url": "HuggingFaceTB/cosmopedia",
-    "columns": {
-      "prompt": "prompt",
-      "response": "text"
-    }
-  },
-  "stem_zh": {
-    "hf_hub_url": "hfl/stem_zh_instruction"
-  },
-  "ruozhiba_gpt4": {
-    "hf_hub_url": "hfl/ruozhiba_gpt4_turbo"
-  },
-  "neo_sft": {
-    "hf_hub_url": "m-a-p/neo_sft_phase2",
-    "formatting": "sharegpt"
-  },
-  "magpie_pro_300k": {
-    "hf_hub_url": "Magpie-Align/Magpie-Pro-300K-Filtered",
-    "formatting": "sharegpt"
-  },
-  "magpie_ultra": {
-    "hf_hub_url": "argilla/magpie-ultra-v0.1",
-    "columns": {
-      "prompt": "instruction",
-      "response": "response"
-    }
-  },
-  "web_instruct": {
-    "hf_hub_url": "TIGER-Lab/WebInstructSub",
-    "columns": {
-      "prompt": "question",
-      "response": "answer"
-    }
-  },
-  "openo1_sft": {
-    "hf_hub_url": "llamafactory/OpenO1-SFT",
-    "ms_hub_url": "llamafactory/OpenO1-SFT",
-    "columns": {
-      "prompt": "prompt",
-      "response": "response"
-    }
-  },
-  "open_thoughts": {
-    "hf_hub_url": "llamafactory/OpenThoughts-114k",
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "messages"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant",
-      "system_tag": "system"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "open_r1_math": {
-    "hf_hub_url": "llamafactory/OpenR1-Math-94k",
+},
+"aerial-airport_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aerial-airport/train/by_image_with_description.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "messages"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant",
-      "system_tag": "system"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "chinese_r1_distill": {
-    "hf_hub_url": "Congliu/Chinese-DeepSeek-R1-Distill-data-110k-SFT",
-    "ms_hub_url": "liucong/Chinese-DeepSeek-R1-Distill-data-110k-SFT"
-  },
-  "llava_1k_en": {
-    "hf_hub_url": "BUAADreamer/llava-en-zh-2k",
-    "subset": "en",
+},
+"all-elements_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/all-elements/train/by_class_label_only.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "messages",
-      "images": "images"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "llava_1k_zh": {
-    "hf_hub_url": "BUAADreamer/llava-en-zh-2k",
-    "subset": "zh",
+},
+"all-elements_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/all-elements/train/by_class_with_description.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "messages",
-      "images": "images"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "llava_150k_en": {
-    "hf_hub_url": "BUAADreamer/llava-en-zh-300k",
-    "subset": "en",
+},
+"all-elements_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/all-elements/train/by_image_label_only.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "messages",
-      "images": "images"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "llava_150k_zh": {
-    "hf_hub_url": "BUAADreamer/llava-en-zh-300k",
-    "subset": "zh",
+},
+"all-elements_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/all-elements/train/by_image_with_description.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "messages",
-      "images": "images"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "pokemon_cap": {
-    "hf_hub_url": "llamafactory/pokemon-gpt4o-captions",
+},
+"aquarium-combined_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aquarium-combined/train/by_class_label_only.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "conversations",
-      "images": "images"
-    }
-  },
-  "mllm_pt_demo": {
-    "hf_hub_url": "BUAADreamer/mllm_pt_demo",
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "messages",
-      "images": "images"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "oasst_de": {
-    "hf_hub_url": "mayflowergmbh/oasst_de"
-  },
-  "dolly_15k_de": {
-    "hf_hub_url": "mayflowergmbh/dolly-15k_de"
-  },
-  "alpaca-gpt4_de": {
-    "hf_hub_url": "mayflowergmbh/alpaca-gpt4_de"
-  },
-  "openschnabeltier_de": {
-    "hf_hub_url": "mayflowergmbh/openschnabeltier_de"
-  },
-  "evol_instruct_de": {
-    "hf_hub_url": "mayflowergmbh/evol-instruct_de"
-  },
-  "dolphin_de": {
-    "hf_hub_url": "mayflowergmbh/dolphin_de"
-  },
-  "booksum_de": {
-    "hf_hub_url": "mayflowergmbh/booksum_de"
-  },
-  "airoboros_de": {
-    "hf_hub_url": "mayflowergmbh/airoboros-3.0_de"
-  },
-  "ultrachat_de": {
-    "hf_hub_url": "mayflowergmbh/ultra-chat_de"
-  },
-  "dlr_web": {
-    "hf_hub_url": "Attention1115/DLR-Web",
-    "split": "full",
-    "columns": {
-      "prompt": "question",
-      "response": "response"
-    }
-  },
-  "dpo_en_demo": {
-    "file_name": "dpo_en_demo.json",
-    "ranking": true,
+},
+"aquarium-combined_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aquarium-combined/train/by_class_with_description.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "conversations",
-      "chosen": "chosen",
-      "rejected": "rejected"
-    }
-  },
-  "dpo_zh_demo": {
-    "file_name": "dpo_zh_demo.json",
-    "ranking": true,
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "conversations",
-      "chosen": "chosen",
-      "rejected": "rejected"
-    }
-  },
-  "dpo_mix_en": {
-    "hf_hub_url": "llamafactory/DPO-En-Zh-20k",
-    "subset": "en",
-    "ranking": true,
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "conversations",
-      "chosen": "chosen",
-      "rejected": "rejected"
-    }
-  },
-  "dpo_mix_zh": {
-    "hf_hub_url": "llamafactory/DPO-En-Zh-20k",
-    "subset": "zh",
-    "ranking": true,
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "conversations",
-      "chosen": "chosen",
-      "rejected": "rejected"
-    }
-  },
-  "ultrafeedback": {
-    "hf_hub_url": "llamafactory/ultrafeedback_binarized",
-    "ms_hub_url": "llamafactory/ultrafeedback_binarized",
-    "ranking": true,
-    "columns": {
-      "prompt": "instruction",
-      "chosen": "chosen",
-      "rejected": "rejected"
-    }
-  },
-  "coig_p": {
-    "hf_hub_url": "m-a-p/COIG-P",
-    "ranking": true,
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "conversations",
-      "chosen": "chosen",
-      "rejected": "rejected"
-    }
-  },
-  "rlhf_v": {
-    "hf_hub_url": "llamafactory/RLHF-V",
-    "ranking": true,
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "conversations",
-      "chosen": "chosen",
-      "rejected": "rejected",
-      "images": "images"
-    }
-  },
-  "vlfeedback": {
-    "hf_hub_url": "Zhihui/VLFeedback",
-    "ranking": true,
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "conversations",
-      "chosen": "chosen",
-      "rejected": "rejected",
-      "images": "images"
-    }
-  },
-  "rlaif_v": {
-    "hf_hub_url": "openbmb/RLAIF-V-Dataset",
-    "ranking": true,
-    "columns": {
-      "prompt": "question",
-      "chosen": "chosen",
-      "rejected": "rejected",
-      "images": "image"
-    }
-  },
-  "orca_pairs": {
-    "hf_hub_url": "Intel/orca_dpo_pairs",
-    "ranking": true,
-    "columns": {
-      "prompt": "question",
-      "chosen": "chosen",
-      "rejected": "rejected",
-      "system": "system"
-    }
-  },
-  "nectar_rm": {
-    "hf_hub_url": "AstraMindAI/RLAIF-Nectar",
-    "ms_hub_url": "AI-ModelScope/RLAIF-Nectar",
-    "ranking": true
-  },
-  "orca_dpo_de": {
-    "hf_hub_url": "mayflowergmbh/intel_orca_dpo_pairs_de",
-    "ranking": true
-  },
-  "kto_en_demo": {
-    "file_name": "kto_en_demo.json",
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "messages",
-      "kto_tag": "label"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "kto_mix_en": {
-    "hf_hub_url": "argilla/kto-mix-15k",
+},
+"aquarium-combined_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aquarium-combined/train/by_image_label_only.json",
     "formatting": "sharegpt",
     "columns": {
-      "messages": "completion",
-      "kto_tag": "label"
+        "messages": "messages",
+        "images": "images"
     },
     "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "ultrafeedback_kto": {
-    "hf_hub_url": "argilla/ultrafeedback-binarized-preferences-cleaned-kto",
-    "ms_hub_url": "AI-ModelScope/ultrafeedback-binarized-preferences-cleaned-kto",
+},
+"aquarium-combined_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aquarium-combined/train/by_image_with_description.json",
+    "formatting": "sharegpt",
     "columns": {
-      "prompt": "prompt",
-      "response": "completion",
-      "kto_tag": "label"
-    }
-  },
-  "wiki_demo": {
-    "file_name": "wiki_demo.txt",
-    "columns": {
-      "prompt": "text"
-    }
-  },
-  "c4_demo": {
-    "file_name": "c4_demo.jsonl",
-    "columns": {
-      "prompt": "text"
-    }
-  },
-  "refinedweb": {
-    "hf_hub_url": "tiiuae/falcon-refinedweb",
-    "columns": {
-      "prompt": "content"
-    }
-  },
-  "redpajama_v2": {
-    "hf_hub_url": "togethercomputer/RedPajama-Data-V2",
-    "columns": {
-      "prompt": "raw_content"
+        "messages": "messages",
+        "images": "images"
     },
-    "subset": "default"
-  },
-  "wikipedia_en": {
-    "hf_hub_url": "olm/olm-wikipedia-20221220",
-    "ms_hub_url": "AI-ModelScope/olm-wikipedia-20221220",
-    "columns": {
-      "prompt": "text"
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
     }
-  },
-  "wikipedia_zh": {
-    "hf_hub_url": "pleisto/wikipedia-cn-20230720-filtered",
-    "ms_hub_url": "AI-ModelScope/wikipedia-cn-20230720-filtered",
+},
+"defect-detection_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/defect-detection/train/by_class_label_only.json",
+    "formatting": "sharegpt",
     "columns": {
-      "prompt": "completion"
-    }
-  },
-  "pile": {
-    "hf_hub_url": "monology/pile-uncopyrighted",
-    "ms_hub_url": "AI-ModelScope/pile",
-    "columns": {
-      "prompt": "text"
-    }
-  },
-  "skypile": {
-    "hf_hub_url": "Skywork/SkyPile-150B",
-    "ms_hub_url": "AI-ModelScope/SkyPile-150B",
-    "columns": {
-      "prompt": "text"
-    }
-  },
-  "fineweb": {
-    "hf_hub_url": "HuggingFaceFW/fineweb",
-    "columns": {
-      "prompt": "text"
-    }
-  },
-  "fineweb_edu": {
-    "hf_hub_url": "HuggingFaceFW/fineweb-edu",
-    "columns": {
-      "prompt": "text"
-    }
-  },
-  "cci3_hq": {
-    "hf_hub_url": "BAAI/CCI3-HQ",
-    "columns": {
-      "prompt": "text"
-    }
-  },
-  "cci3_data": {
-    "hf_hub_url": "BAAI/CCI3-Data",
-    "columns": {
-      "prompt": "text"
-    }
-  },
-  "cci4_base": {
-    "hf_hub_url": "BAAI/CCI4.0-M2-Base-v1",
-    "columns": {
-      "prompt": "text"
-    }
-  },
-  "cci4_cot": {
-    "hf_hub_url": "BAAI/CCI4.0-M2-CoT-v1",
-    "columns": {
-      "prompt": "text"
-    }
-  },
-  "cci4_extra": {
-    "hf_hub_url": "BAAI/CCI4.0-M2-Extra-v1",
-    "columns": {
-      "prompt": "text"
-    }
-  },
-  "the_stack": {
-    "hf_hub_url": "bigcode/the-stack",
-    "ms_hub_url": "AI-ModelScope/the-stack",
-    "columns": {
-      "prompt": "content"
-    }
-  },
-  "starcoder_python": {
-    "hf_hub_url": "bigcode/starcoderdata",
-    "ms_hub_url": "AI-ModelScope/starcoderdata",
-    "columns": {
-      "prompt": "content"
+        "messages": "messages",
+        "images": "images"
     },
-    "folder": "python"
-  }
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"defect-detection_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/defect-detection/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"defect-detection_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/defect-detection/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"defect-detection_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/defect-detection/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"dentalai_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/dentalai/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"dentalai_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/dentalai/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"dentalai_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/dentalai/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"dentalai_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/dentalai/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"flir-camera-objects_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/flir-camera-objects/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"flir-camera-objects_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/flir-camera-objects/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"flir-camera-objects_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/flir-camera-objects/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"flir-camera-objects_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/flir-camera-objects/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"gwhd2021_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/gwhd2021/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"gwhd2021_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/gwhd2021/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"gwhd2021_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/gwhd2021/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"gwhd2021_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/gwhd2021/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"lacrosse-object-detection_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/lacrosse-object-detection/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"lacrosse-object-detection_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/lacrosse-object-detection/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"lacrosse-object-detection_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/lacrosse-object-detection/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"lacrosse-object-detection_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/lacrosse-object-detection/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"new-defects-in-wood_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/new-defects-in-wood/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"new-defects-in-wood_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/new-defects-in-wood/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"new-defects-in-wood_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/new-defects-in-wood/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"new-defects-in-wood_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/new-defects-in-wood/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"orionproducts_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/orionproducts/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"orionproducts_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/orionproducts/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"orionproducts_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/orionproducts/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"orionproducts_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/orionproducts/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"paper-parts_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/paper-parts/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"paper-parts_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/paper-parts/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"paper-parts_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/paper-parts/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"paper-parts_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/paper-parts/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"recode-waste_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/recode-waste/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"recode-waste_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/recode-waste/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"recode-waste_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/recode-waste/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"recode-waste_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/recode-waste/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"soda-bottles_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/soda-bottles/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"soda-bottles_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/soda-bottles/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"soda-bottles_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/soda-bottles/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"soda-bottles_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/soda-bottles/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"the-dreidel-project_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/the-dreidel-project/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"the-dreidel-project_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/the-dreidel-project/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"the-dreidel-project_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/the-dreidel-project/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"the-dreidel-project_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/the-dreidel-project/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"trail-camera_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/trail-camera/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"trail-camera_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/trail-camera/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"trail-camera_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/trail-camera/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"trail-camera_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/trail-camera/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"water-meter_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/water-meter/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"water-meter_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/water-meter/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"water-meter_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/water-meter/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"water-meter_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/water-meter/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wb-prova_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wb-prova/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wb-prova_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wb-prova/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wb-prova_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wb-prova/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wb-prova_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wb-prova/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wildfire-smoke_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wildfire-smoke/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wildfire-smoke_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wildfire-smoke/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wildfire-smoke_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wildfire-smoke/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wildfire-smoke_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wildfire-smoke/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"x-ray-id_single_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/x-ray-id/train/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"x-ray-id_single_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/x-ray-id/train/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"x-ray-id_multi_class_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/x-ray-id/train/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"x-ray-id_multi_instruction_6X": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/x-ray-id/train/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+  "actions_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/actions/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"actions_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/actions/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"actions_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/actions/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"actions_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/actions/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"aerial-airport_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aerial-airport/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"aerial-airport_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aerial-airport/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"aerial-airport_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aerial-airport/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"aerial-airport_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aerial-airport/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"all-elements_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/all-elements/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"all-elements_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/all-elements/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"all-elements_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/all-elements/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"all-elements_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/all-elements/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"aquarium-combined_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aquarium-combined/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"aquarium-combined_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aquarium-combined/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"aquarium-combined_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aquarium-combined/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"aquarium-combined_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/aquarium-combined/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"defect-detection_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/defect-detection/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"defect-detection_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/defect-detection/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"defect-detection_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/defect-detection/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"defect-detection_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/defect-detection/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"dentalai_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/dentalai/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"dentalai_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/dentalai/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"dentalai_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/dentalai/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"dentalai_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/dentalai/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"flir-camera-objects_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/flir-camera-objects/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"flir-camera-objects_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/flir-camera-objects/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"flir-camera-objects_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/flir-camera-objects/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"flir-camera-objects_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/flir-camera-objects/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"gwhd2021_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/gwhd2021/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"gwhd2021_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/gwhd2021/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"gwhd2021_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/gwhd2021/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"gwhd2021_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/gwhd2021/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"lacrosse-object-detection_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/lacrosse-object-detection/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"lacrosse-object-detection_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/lacrosse-object-detection/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"lacrosse-object-detection_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/lacrosse-object-detection/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"lacrosse-object-detection_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/lacrosse-object-detection/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"new-defects-in-wood_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/new-defects-in-wood/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"new-defects-in-wood_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/new-defects-in-wood/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"new-defects-in-wood_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/new-defects-in-wood/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"new-defects-in-wood_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/new-defects-in-wood/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"orionproducts_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/orionproducts/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"orionproducts_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/orionproducts/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"orionproducts_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/orionproducts/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"orionproducts_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/orionproducts/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"paper-parts_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/paper-parts/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"paper-parts_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/paper-parts/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"paper-parts_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/paper-parts/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"paper-parts_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/paper-parts/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"recode-waste_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/recode-waste/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"recode-waste_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/recode-waste/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"recode-waste_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/recode-waste/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"recode-waste_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/recode-waste/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"soda-bottles_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/soda-bottles/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"soda-bottles_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/soda-bottles/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"soda-bottles_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/soda-bottles/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"soda-bottles_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/soda-bottles/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"the-dreidel-project_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/the-dreidel-project/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"the-dreidel-project_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/the-dreidel-project/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"the-dreidel-project_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/the-dreidel-project/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"the-dreidel-project_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/the-dreidel-project/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"trail-camera_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/trail-camera/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"trail-camera_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/trail-camera/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"trail-camera_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/trail-camera/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"trail-camera_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/trail-camera/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"water-meter_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/water-meter/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"water-meter_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/water-meter/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"water-meter_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/water-meter/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"water-meter_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/water-meter/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wb-prova_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wb-prova/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wb-prova_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wb-prova/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wb-prova_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wb-prova/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wb-prova_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wb-prova/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wildfire-smoke_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wildfire-smoke/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wildfire-smoke_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wildfire-smoke/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wildfire-smoke_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wildfire-smoke/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"wildfire-smoke_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/wildfire-smoke/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"x-ray-id_single_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/x-ray-id/valid/by_class_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"x-ray-id_single_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/x-ray-id/valid/by_class_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"x-ray-id_multi_class_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/x-ray-id/valid/by_image_label_only.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+},
+"x-ray-id_multi_instruction_6X_validation": {
+    "file_name": "/home/siyili/LLaMA-Factory/sharegpt4v_datasets-6X/x-ray-id/valid/by_image_with_description.json",
+    "formatting": "sharegpt",
+    "columns": {
+        "messages": "messages",
+        "images": "images"
+    },
+    "tags": {
+        "role_tag": "role",
+        "content_tag": "content",
+        "user_tag": "user",
+        "assistant_tag": "assistant"
+    }
+}
 }

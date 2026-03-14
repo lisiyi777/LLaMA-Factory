@@ -1,3 +1,7 @@
+# RF20-VL
+data/rf20vl*
+rf20vl_sharegpt4v/sharegpt4v_datasets
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
