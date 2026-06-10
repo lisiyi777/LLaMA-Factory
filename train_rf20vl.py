@@ -25,12 +25,12 @@ datasets = [
 
 versions = [
     # "single_class", 
-    "single_instruction", 
-    # "multi_class", 
-    # "multi_instruction"
+    # "single_instruction", 
+    "multi_class", 
+    "multi_instruction"
     ]
 
 for dataset in datasets:
     for version in versions:
-        os.system(f"llamafactory-cli train configs/qwen3vl_lora_sft.yaml dataset={dataset}_{version} output_dir=saves/qwen3vl-8b/{dataset}/{version}")
+        os.system(f"llamafactory-cli train configs/qwen3vl_lora_sft.yaml dataset={dataset}_{version} eval_dataset={dataset}_{version}_validation output_dir=saves/qwen3vl-8b/{dataset}/{version}")
         

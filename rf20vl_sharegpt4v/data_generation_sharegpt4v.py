@@ -68,18 +68,6 @@ def convert_bbox_to_xyxy(bbox: List[float]) -> List[float]:
     x, y, w, h = bbox
     return [x, y, x + w, y + h]
 
-# def format_detections_response(annotations: List[Dict], class_mapping: Dict[int, str]) -> str:
-#     """Format annotations as JSON response - always returns a list."""
-#     detections = []
-#     for ann in annotations:
-#         bbox_xyxy = convert_bbox_to_xyxy(ann['bbox'])
-#         detection = {
-#             "bbox_2d": bbox_xyxy,
-#             "label": class_mapping[ann['category_id']]
-#         }
-#         detections.append(detection)
-    
-#     return json.dumps(detections)
 def format_detections_response(annotations: List[Dict], class_mapping: Dict[int, str],
                                img_w: int, img_h: int, coord_base: float = 1000.0) -> str:
     detections = []
